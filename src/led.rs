@@ -102,7 +102,7 @@ fn write_dsp_ctrl(gpio: &mut GpioController, brightness: u16) {
 }
 
 // 3. write
-fn write(mut gpio: &mut GpioController, data: &[u16], pos: u16) {
+fn write(gpio: &mut GpioController, data: &[u16], pos: u16) {
 
     if !(0..=14).contains(&pos) {
         panic!("Position out of range");
@@ -117,7 +117,7 @@ fn write(mut gpio: &mut GpioController, data: &[u16], pos: u16) {
     gpio.set_stb_high();
 }
 
-fn command(mut gpio: &mut GpioController, cmd: u16) {
+fn command(gpio: &mut GpioController, cmd: u16) {
     gpio.set_stb_low();
     gpio.write_byte(cmd);
     gpio.set_stb_high();
@@ -128,7 +128,8 @@ fn write_data_cmd(gpio: &mut GpioController) {
     command(gpio, INCREMENT);
 }
 
-fn set_address(mut gpio: &mut GpioController, addr: u16) {
+fn set_address(gpio: &mut GpioController, addr: u16) {
     gpio.write_byte(ADDRESS| addr);
 }
+
 
